@@ -12,10 +12,13 @@
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <i class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                  4
+                  <div v-if="kpi[0].value != null && kpi[0].previous != null">
+                    <i v-if="kpi[0].previous < kpi[0].value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
+                    <i v-if="kpi[0].previous > kpi[0].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  </div>
+                  <p>{{kpi[0].value}}</p>
                 </div>
-                <div class="stats-title">Production Sites</div>
+                <div class="stats-title">{{kpi[0].name}}</div>
               </div>
             </div>
           </vuestic-widget>
@@ -26,10 +29,13 @@
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <i class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                  10
+                  <div v-if="kpi[1].value != null && kpi[1].previous != null">
+                  <i v-if="kpi[1].previous < kpi[1].value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
+                  <i v-if="kpi[1].previous > kpi[1].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  </div>
+                  <p>{{kpi[1].value}}</p>
                 </div>
-                <div class="stats-title">Distribution Sites</div>
+                <div class="stats-title">{{kpi[1].name}}</div>
               </div>
             </div>
           </vuestic-widget>
@@ -42,10 +48,13 @@
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <i class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                  10
+                  <div v-if="kpi[2].value != null && kpi[2].previous != null">
+                  <i v-if="kpi[2].previous < kpi[2].value" class="ion ion-arrow-up-c text-warning stats-icon"></i>
+                  <i v-if="kpi[2].previous > kpi[2].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  </div>
+                  <p>{{kpi[2].value}}</p>
                 </div>
-                <div class="stats-title">Distribution Sites</div>
+                <div class="stats-title">{{kpi[2].name}}</div>
               </div>
             </div>
           </vuestic-widget>
@@ -56,10 +65,13 @@
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <i class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                  10
+                  <div v-if="kpi[3].value != null && kpi[3].previous != null">
+                  <i v-if="kpi[3].previous < kpi[3].value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
+                  <i v-if="kpi[3].previous > kpi[3].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  </div>
+                  <p>{{kpi[3].value}}</p>
                 </div>
-                <div class="stats-title">Distribution Sites</div>
+                <div class="stats-title">{{kpi[3].name}}</div>
               </div>
             </div>
           </vuestic-widget>
@@ -78,10 +90,38 @@
   export default {
     name: 'dashboard-info-widgets',
     components: {LeafletMap},
+    props: ['asset'],
     computed: {
       assets () {
         return this.$store.state.staticData.assets
-      }
+      },
+      kpi() {
+        return [
+        {
+          name: 'Total flow',
+          value: 1497.69,
+          previous: null,
+          uom: ''
+        },
+        {
+          name: 'Conductivity',
+          value: 512,
+          previous: 500,
+          uom: 'μS/cm'
+        },
+        {
+          name: 'Acidity (pH)',
+          value: 7.71,
+          previous: 7.80,
+          uom: ''
+        },
+        {
+          name: 'Turbidity',
+          value: 0.17,
+          previous: 0.17,
+          uom: 'NTU'
+        }
+      ]}
     }
   }
 </script>

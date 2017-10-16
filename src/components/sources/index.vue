@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sources-info-widgets :mapAssets="assets.productionSites"></sources-info-widgets>
+    <sources-info-widgets :asset="asset"></sources-info-widgets>
     <vuestic-widget class="chart-widget">
       <line-chart v-if="series" v-bind:chart-data="series" :height="200"></line-chart>
     </vuestic-widget>
