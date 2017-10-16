@@ -1,15 +1,17 @@
 const store = {
   namespaced: true,
   state: {
-    assets: {
-
-    },
+    assets: [],
+    assetsFlatMap: {},
     labels: [],
     series: []
   },
   mutations: {
     loadStatic(state, assets) {
       state.assets = assets
+      assets.forEach(asset => {
+        state.assetsFlatMap[asset.id] = asset
+      })
     }
   },
   actions: {
@@ -32,8 +34,9 @@ const prepareAssets = (data) => {
     var attrs = attributes[i]
     assets.push({
       name: item.Name,
+      id: item.WebId,
       lat: 0.0,
-      lng: 0.0
+      lng: 0.0,
     })
   }
 

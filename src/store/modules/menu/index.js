@@ -10,7 +10,7 @@ import tables from './tables'
 import sources from './sources'
 
 const state = {
-  items: [dashboard]
+  items: [dashboard, sources]
 }
 
 const mutations = {
@@ -23,8 +23,7 @@ const mutations = {
   },
   loadMenu (state, assets) {
     var items = assetsToItems(assets)
-    console.log(items)
-    state.items = state.items.concat(items)
+    state.items[1].children = items
   }
 }
 
@@ -38,11 +37,10 @@ const actions = {
 }
 
 const assetsToItems = (assets) => {
-  console.log(assets)
   return assets.map(asset => {
     return {
       name: asset.name,
-      path: '/sources',
+      path: '/sources/' + asset.id,
       component: lazyLoading('dashboard/Dashboard'),
       meta: {
         title: asset.name

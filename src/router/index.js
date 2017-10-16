@@ -3,11 +3,19 @@ import Router from 'vue-router'
 
 import menuModule from 'vuex-store/modules/menu'
 
+import Source from 'src/components/sources'
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
     ...generateRoutesFromMenu(menuModule.state.items),
+    {
+      path: '/sources/:webId',
+      name: 'Source',
+      component: Source,
+      props: true
+    },
     {path: '*', redirect: { name: getDefaultRoute(menuModule.state.items).name }}
   ]
 })
