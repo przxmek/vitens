@@ -7,7 +7,6 @@ export default {
   mixins: [reactiveProp],
   props: ['options'],
   mounted() {
-    console.log("mounted")
     this.renderChart(this.chartData, this.options)
   }
 }

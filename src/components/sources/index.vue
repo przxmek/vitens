@@ -4,6 +4,7 @@
     <vuestic-widget class="chart-widget">
       <line-chart v-if="series" v-bind:chart-data="series" :height="200"></line-chart>
     </vuestic-widget>
+    <event-table :web-id="webId"></event-table>
   </div>
 
 </template>
@@ -13,10 +14,11 @@
   import LineChart from '../statistics/charts/LineChart'
   import axios from 'axios'
   import moment from 'moment'
+  import EventTable from './EventTable'
 
   export default {
     props: ['webId'],
-    components: {SourcesInfoWidgets, LineChart},
+    components: {SourcesInfoWidgets, LineChart, EventTable},
     data () {
       return {
         labels: [],

@@ -27,7 +27,6 @@
       }).addTo(this.map)
 
       if (this.assets && this.assets.length > 0) {
-        console.log(this.assets)
         this.assets.forEach(asset => {
           L.marker([asset.lat, asset.lng]).addTo(this.map)
             .bindPopup(asset.name)

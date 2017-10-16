@@ -1,5 +1,5 @@
 import proj4 from 'proj4'
-import OpenLayers from 'ol'
+import axios from 'axios'
 
 const store = {
   namespaced: true,
@@ -59,6 +59,7 @@ const parseSite = (data) => {
       id: item.WebId,
       lat: coords[1],
       lng: coords[0],
+      path: item.Path,
       links: {
         plot: item.Links.InterpolatedData + "?categoryName=Data",
         recorded: item.Links.RecordedData + "?categoryName=Data"
