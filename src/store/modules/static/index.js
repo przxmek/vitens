@@ -32,9 +32,10 @@ const store = {
   },
   actions: {
     loadStatic(store, data) {
-      const assets = prepareAssets(store, data)
-      store.commit('loadStatic', assets)
-      store.commit('loadMenu', assets, {root: true})
+      prepareAssets(store, data).then(assets => {
+        store.commit('loadStatic', assets)
+        store.commit('loadMenu', assets, {root: true})
+      })
     },
     updateRealtime(store, realtimeData) {
       store.commit('updateRealtime', realtimeData)
@@ -45,13 +46,9 @@ const store = {
 const firstProj = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.417,50.3319,465.552,-0.398957,0.343988,-1.8774,4.0725 +units=m +no_defs"
 const secProj = "+proj=longlat +datum=WGS84 +no_defs"
 
-const prepareAssets = (store, data) => {
-  let prodSite = parseSite(data.prod)
-  let distSite = parseSite(data.dist)
-
-  for (let prod of prodSite) {
-    startRealtimeDataProd(store, prod)
-  }
+const prepareAssets = async (store, data) => {
+  let prodSite = await parseProdSites(store, data.prod)
+  let distSite = parseSites(data.dist)
 
   return {
     productionSites: prodSite,
@@ -59,7 +56,17 @@ const prepareAssets = (store, data) => {
   }
 }
 
-const parseSite = (data) => {
+const parseProdSites = async (store, data) => {
+  let prodSite = parseSites(data)
+
+  for (let prod of prodSite) {
+    await startRealtimeDataProd(store, prod)
+  }
+
+  return prodSite
+}
+
+const parseSites = (data) => {
   var items = data.Sites.Content.Items
   var attributes = data.SitesAttributes.Content.Items.map(e => e.Content.Items)
 
@@ -77,30 +84,30 @@ const parseSite = (data) => {
       lat: coords[1],
       lng: coords[0],
       path: item.Path,
-      kpi: {
+      attributes: {
         'totalFlow': {
+          webId: '',
           name: 'Total flow',
-          value: 1497.69,
-          previous: null,
+          data: null,
           uom: ''
         },
         'conductivity': {
+          webId: '',
           name: 'Conductivity',
-          value: 512,
-          previous: 500,
+          data: null,
           uom: 'μS/cm'
         },
         'acidity':
           {
+            webId: '',
             name: 'Acidity (pH)',
-            value: 7.71,
-            previous: 7.80,
+            data: null,
             uom: ''
           },
         'turbidity': {
+          webId: '',
           name: 'Turbidity',
-          value: 0.17,
-          previous: 0.17,
+          data: null,
           uom: 'NTU'
         }
       },
@@ -119,8 +126,18 @@ const parseSite = (data) => {
 const startRealtimeDataProd = async (store, asset) => {
   let qualityElementUrl =  'https://saturn039.osiproghack.int/piwebapi/elements/?path=' + asset.path + "\\Distribution\\Quality"
   let qualityElement = (await axios.get(qualityElementUrl)).data
-  let wsUrl = "wss://saturn039.osiproghack.int/piwebapi/streamsets/" + qualityElement.WebId + "/channel"
+  let qualityAttributes = (await axios.get(qualityElement.Links.Attributes)).data.Items
 
+  for (let a in asset.attributes) {
+    let attr = asset.attributes[a]
+    if (attr === null || getAttrByDesc(qualityAttributes, attr.name) === null)
+      continue
+    attr.webId = getAttrByDesc(qualityAttributes, attr.name).WebId
+    store.dispatch('updateRealtime', {webId: attr.webId, value: null, timestamp: null})
+    attr.data = store.state.assetsFlatMap[attr.webId]
+  }
+
+  let wsUrl = "wss://saturn039.osiproghack.int/piwebapi/streamsets/" + qualityElement.WebId + "/channel"
   let ws = new WebSocket(wsUrl)
   ws.onmessage = function(msg) {
     let json = JSON.parse(msg.data)
@@ -137,6 +154,14 @@ const startRealtimeDataProd = async (store, asset) => {
       }
     }
   }
+}
+
+const getAttrByDesc = (attributes, desc) => {
+  for (let attr of attributes) {
+    if (attr.Description === desc)
+      return attr
+  }
+  return null
 }
 
 export default store
