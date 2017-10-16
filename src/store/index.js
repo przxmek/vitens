@@ -3,8 +3,11 @@ import Vuex from 'vuex'
 
 import menu from './modules/menu'
 import app from './modules/app'
+import staticData from './modules/static'
 
 import * as getters from './getters'
+
+import piWebApi from './plugins/pi-web-api'
 
 Vue.use(Vuex)
 
@@ -13,10 +16,12 @@ const store = new Vuex.Store({
   getters,
   modules: {
     menu,
-    app
+    app,
+    staticData
   },
   state: {},
-  mutations: {}
+  mutations: {},
+  plugins: [ piWebApi ]
 })
 
 export default store
