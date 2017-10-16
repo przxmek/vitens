@@ -6,7 +6,8 @@
 <script>
   import 'leaflet-map'
   import * as L from 'leaflet'
-
+  import OpenLayers from 'ol'
+  import proj4 from 'proj4'
   export default {
     name: 'leaflet-map',
     props: [ 'assets' ],
