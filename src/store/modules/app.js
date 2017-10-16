@@ -13,7 +13,7 @@ const state = {
     palette: {
       primary: '#4ab2e3',
       danger: '#e34a4a',
-      info: '#4ab2e3',
+      info: '#61d49c',
       success: '#db76df',
       warning: '#f7cc36',
       white: '#fff',

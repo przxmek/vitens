@@ -13,12 +13,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="event in eventData" :class="{'table-success': event.IsAcknowledged}">
+            <tr v-for="event in eventData" :class="{'table-success': event.IsAcknowledged, 'table-info': event.Description === 'sended' }">
               <td>{{event.StartTime}}</td>
               <td>{{event.EndTime}}</td>
               <td>{{event.Name}}</td>
               <td>
-                <button v-if="!event.IsAcknowledged" class="btn btn-primary btn-micro" @click="acceptEvent(event)">Accept</button>
+                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-primary btn-micro" @click="acceptEvent(event)">Accept</button>
+                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-info btn-micro" @click="sendToOperation(event)">
+                  <span>Send to operations</span>
+                </button>
               </td>
             </tr>
             </tbody>
@@ -47,6 +50,13 @@ export default {
         this.loadEvents(this.webId)
       })
       console.log(event)
+    },
+    sendToOperation(event) {
+      axios.patch('https://saturn039.osiproghack.int/piwebapi/eventframes/' + event.WebId, {
+        "Description": "sended"
+      }).then(e => {
+        this.loadEvents(this.webId)
+      });
     },
     loadEvents(id) {
       var asset = this.$store.state.staticData.assetsFlatMap[id]
