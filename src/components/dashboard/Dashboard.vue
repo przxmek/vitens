@@ -22,7 +22,7 @@
     },
     computed: {
       assets() {
-        return this.$store.state.staticData.assets
+        return this.$store.state.staticData.assets.productionSites.concat(this.$store.state.staticData.assets.distributionSites)
       },
     }
   }

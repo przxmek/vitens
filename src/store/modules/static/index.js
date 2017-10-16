@@ -4,7 +4,10 @@ import OpenLayers from 'ol'
 const store = {
   namespaced: true,
   state: {
-    assets: [],
+    assets: {
+      productionSites: [],
+      distributionSites: []
+    },
     assetsFlatMap: {},
     labels: [],
     series: []
@@ -24,7 +27,7 @@ const store = {
     loadStatic(store, data) {
       const assets = prepareAssets(data)
       store.commit('loadStatic', assets)
-      store.commit('loadMenu', assets, { root: true })
+      store.commit('loadMenu', assets, {root: true})
     }
   }
 }
