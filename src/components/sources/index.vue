@@ -1,7 +1,7 @@
 <template>
   <div>
     <vuestic-widget class="col-sm-12 map-widget">
-      <leaflet-map :assets="assets"></leaflet-map>
+      <leaflet-map :assets="assets.productionSites"></leaflet-map>
     </vuestic-widget>
     <vuestic-widget class="chart-widget">
       <line-chart v-if="series" v-bind:chart-data="series" :height="200"></line-chart>

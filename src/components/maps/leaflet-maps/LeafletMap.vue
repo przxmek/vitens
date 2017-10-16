@@ -26,7 +26,7 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map)
 
-      if (this.assets.length > 0) {
+      if (this.assets && this.assets.length > 0) {
         console.log(this.assets)
         this.assets.forEach(asset => {
           L.marker([asset.lat, asset.lng]).addTo(this.map)

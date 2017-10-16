@@ -12,7 +12,10 @@ const store = {
   mutations: {
     loadStatic(state, assets) {
       state.assets = assets
-      assets.forEach(asset => {
+      assets.productionSites.forEach(asset => {
+        state.assetsFlatMap[asset.id] = asset
+      })
+      assets.distributionSites.forEach(asset => {
         state.assetsFlatMap[asset.id] = asset
       })
     }
@@ -30,8 +33,15 @@ const firstProj = "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889
 const secProj = "+proj=longlat +datum=WGS84 +no_defs"
 
 const prepareAssets = (data) => {
-  var items = data.ProductionSites.Content.Items
-  var attributes = data.ProductionSitesAttributes.Content.Items.map(e => e.Content.Items)
+  return {
+    productionSites: parseSite(data.prod),
+    distributionSites: parseSite(data.dist)
+  }
+}
+
+const parseSite = (data) => {
+  var items = data.Sites.Content.Items
+  var attributes = data.SitesAttributes.Content.Items.map(e => e.Content.Items)
 
   var assets = []
   var i

@@ -12,69 +12,85 @@ const piwebapi = store => {
 
 const load = (store) => {
   var prodPayload = {
-    "Production": {
+    "Root": {
       "Method": "GET",
       "Resource": "https://saturn039.osiproghack.int/piwebapi/elements/E0QlqvSyIj702xjP96PHIItwaSVck2uy5xGpbgANOimkwAU0FUVVJOMDM4XENPTk5FQ1RQT0lOVFxWSVRFTlNcRlJJRVNMQU5EIFBST1ZJTkNFXDAxIFBST0RVQ1RJT04gU0lURVM"
     },
-    "ProductionSites": {
+    "Sites": {
       "Method": "GET",
-      "Resource": "$.Production.Content.Links.Elements",
+      "Resource": "$.Root.Content.Links.Elements",
       "ParentIds": [
-        "Production"
+        "Root"
       ]
     },
-    "ProductionSitesAttributes": {
+    "SitesAttributes": {
       "Method": "GET",
       "RequestTemplate": {
-        "Resource": "$.ProductionSites.Content.Items[*].Links.Attributes"
+        "Resource": "$.Sites.Content.Items[*].Links.Attributes"
       },
       "ParentIds": [
-        "ProductionSites"
+        "Sites"
       ]
     }
   }
 
   var distPayload = {
-    "Distribution": {
+    "Root": {
       "Method": "GET",
       "Resource": "https://localhost/piwebapi/elements/E0QlqvSyIj702xjP96PHIItwmyZck2uy5xGpbgANOimkwAU0FUVVJOMDM4XENPTk5FQ1RQT0lOVFxWSVRFTlNcRlJJRVNMQU5EIFBST1ZJTkNFXDAyIERJU1RSSUJVVElPTiBTSVRFUw"
     },
-    "DistributionSites": {
+    "Sites": {
       "Method": "GET",
-      "Resource": "$.Distribution.Content.Links.Elements",
+      "Resource": "$.Root.Content.Links.Elements",
       "ParentIds": [
-        "Distribution"
+        "Root"
       ]
     },
-    "DistributionSitesAttributes": {
+    "SitesAttributes": {
       "Method": "GET",
       "RequestTemplate": {
-        "Resource": "$.DistributionSites.Content.Items[*].Links.Attributes"
+        "Resource": "$.Sites.Content.Items[*].Links.Attributes"
       },
       "ParentIds": [
-        "DistributionSites"
+        "Sites"
       ]
     }
   }
 
-  axios.post('https://saturn039.osiproghack.int/piwebapi/batch', prodPayload).then(response => {
-    let promises = []
-    for (const site of response.data['ProductionSitesAttributes'].Content.Items) {
+  const batchUrl = 'https://saturn039.osiproghack.int/piwebapi/batch'
+
+  let prod = null
+  let dist = null
+
+  let p1 = axios.post(batchUrl, prodPayload).then(async function (response) {
+    for (const site of response.data['SitesAttributes'].Content.Items) {
       for (const attr of site.Content.Items) {
         if (attr.Type === "OSIsoft.AF.Asset.AFFile")
           continue
         const url = attr.Links.EndValue
-        let getPromise = axios.get(url)
-        promises.push(getPromise.then(r => {
-          attr.Value = r.data
-        }))
+        let result = await axios.get(url)
+        attr.Value = result.data
       }
     }
-
-    axios.all(promises).then(r => {
-      store.dispatch('staticData/loadStatic', response.data)
-    })
+    prod = response.data
   });
+
+  let p2 = axios.post(batchUrl, distPayload).then(async function (response) {
+    for (const site of response.data['SitesAttributes'].Content.Items) {
+      for (const attr of site.Content.Items) {
+        if (attr.Type === "OSIsoft.AF.Asset.AFFile")
+          continue
+        const url = attr.Links.EndValue
+        let result = await axios.get(url)
+        attr.Value = result.data
+      }
+    }
+    dist = response.data
+  });
+
+  axios.all([p1, p2]).then(r => {
+    store.dispatch('staticData/loadStatic', {prod, dist})
+  })
 }
 
 export default piwebapi

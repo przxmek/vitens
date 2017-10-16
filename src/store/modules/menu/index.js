@@ -8,9 +8,10 @@ import ui from './ui'
 import maps from './maps'
 import tables from './tables'
 import sources from './sources'
+import distributions from './distributions'
 
 const state = {
-  items: [dashboard, sources]
+  items: [dashboard, sources, distributions]
 }
 
 const mutations = {
@@ -22,8 +23,10 @@ const mutations = {
     }
   },
   loadMenu (state, assets) {
-    var items = assetsToItems(assets)
-    state.items[1].children = items
+    var productionSiteItems = assetsToItems(assets.productionSites)
+    var distributionSiteItems = assetsToItems(assets.distributionSites)
+    state.items[1].children = productionSiteItems
+    state.items[2].children = distributionSiteItems
   }
 }
 
