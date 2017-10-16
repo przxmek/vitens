@@ -41,7 +41,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "../../../../node_modules/leaflet/dist/leaflet.css";
   @import "../../../sass/_variables.scss";
 

@@ -4,7 +4,7 @@
       <leaflet-map :assets="assets"></leaflet-map>
     </vuestic-widget>
     <vuestic-widget class="chart-widget">
-      <line-chart v-if="series" v-bind:chart-data="series" :options="options" :height="200"></line-chart>
+      <line-chart v-if="series" v-bind:chart-data="series" :height="200"></line-chart>
     </vuestic-widget>
   </div>
 
