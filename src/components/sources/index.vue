@@ -4,7 +4,7 @@
       <leaflet-map :assets="assets"></leaflet-map>
     </vuestic-widget>
     <vuestic-widget class="chart-widget">
-      <line-chart v-bind:chart-data="series" type="line" :height="200"></line-chart>
+      <line-chart v-if="series" v-bind:chart-data="series" :options="options" :height="200"></line-chart>
     </vuestic-widget>
   </div>
 
@@ -13,16 +13,53 @@
 <script>
   import LeafletMap from '../maps/leaflet-maps/LeafletMap'
   import LineChart from '../statistics/charts/LineChart'
+  import axios from 'axios'
+  import moment from 'moment'
 
   export default {
     props: ['webId'],
     components: {LeafletMap, LineChart},
-    mounted() {
-      console.log(this.webId)
+    data () {
+      return {
+        labels: [],
+        dataSeries: []
+      }
     },
     computed: {
+      asset() {
+        return this.$store.state.staticData.assetsFlatMap[this.webId]
+      },
       assets() {
         return this.$store.state.staticData.assets
+      },
+      series () {
+        return {
+          labels: this.labels,
+          datasets: [
+            {
+              lineTension: 0,
+              label: "",
+              borderColor: 'green',
+              fill: false,
+              data: this.dataSeries
+            }
+          ]
+        }
+      }
+  },
+    watch: {
+      asset: function (data) {
+        axios.get(data.links.plot).then(response => {
+          var series = response.data.Items[0].Items;
+          this.labels = series.map(e => moment(e.Timestamp).format("YYYY-MM-DD HH:mm"))
+          this.dataSeries = series.map(e => {
+            console.log(e.Timestamp)
+            return {
+              t: moment(e.Timestamp).unix(),
+              y: e.Value
+            }
+          })
+        })
       }
     }
   }

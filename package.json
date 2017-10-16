@@ -25,6 +25,7 @@
     "ionicons": "^2.0.1",
     "kewler": "^1.0.8",
     "leaflet-map": "^0.2.1",
+    "moment": "^2.19.1",
     "normalize.css": "7.0.0",
     "ol": "^4.4.2",
     "proj4": "^2.4.4",

@@ -17,7 +17,7 @@ const store = new Vuex.Store({
   modules: {
     menu,
     app,
-    staticData
+    staticData,
   },
   state: {},
   mutations: {},
