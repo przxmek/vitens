@@ -47,7 +47,8 @@ const prepareAssets = (data) => {
       lat: coords[1],
       lng: coords[0],
       links: {
-        plot: item.Links.InterpolatedData + "?nameFilter=*Total%20Flow*"
+        plot: item.Links.InterpolatedData + "?categoryName=Data",
+        recorded: item.Links.RecordedData + "?categoryName=Data"
       }
     })
   }
