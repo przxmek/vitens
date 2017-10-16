@@ -30,12 +30,12 @@
     },
     watch: {
       assets: function (data) {
-        console.log(data)
         data.forEach(asset => {
           L.marker([asset.lat, asset.lng]).addTo(this.map)
             .bindPopup(asset.name)
             .openPopup()
         })
+        this.map.fitBounds(data.map(e => [e.lat, e.lng]))
       }
     }
   }

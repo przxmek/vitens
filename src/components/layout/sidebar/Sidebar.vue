@@ -69,7 +69,8 @@
         this.menuItems.forEach((item) => {
           this.expand({
             menuItem: item,
-            expand: parent.name === item.name
+//            expand: parent.name === item.name
+            expand: true
           })
         })
       }

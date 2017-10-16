@@ -1,24 +1,35 @@
 <template>
-  <vuestic-widget class="col-sm-12 widget-viewport-height" headerText="Leaflet Maps">
-    <leaflet-map :assets="assets"></leaflet-map>
-  </vuestic-widget>
+  <div>
+    <vuestic-widget class="col-sm-12 map-widget">
+      <leaflet-map :assets="assets"></leaflet-map>
+    </vuestic-widget>
+    <vuestic-widget class="chart-widget">
+      <line-chart v-bind:chart-data="series" type="line" :height="200"></line-chart>
+    </vuestic-widget>
+  </div>
+
 </template>
 
 <script>
   import LeafletMap from '../maps/leaflet-maps/LeafletMap'
+  import LineChart from '../statistics/charts/LineChart'
+
   export default {
     props: ['webId'],
-    components: { LeafletMap },
-    mounted () {
+    components: {LeafletMap, LineChart},
+    mounted() {
       console.log(this.webId)
     },
     computed: {
-      assets () {
+      assets() {
         return this.$store.state.staticData.assets
       }
     }
   }
 </script>
 
-<style lang="scss">
+<style>
+  .map-widget {
+    height: 300px;
+  }
 </style>

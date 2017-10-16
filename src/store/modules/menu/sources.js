@@ -4,6 +4,7 @@ export default {
   name: 'Sources',
   meta: {
     expanded: true,
+    alwaysExpanded: true,
     title: 'Sources',
     iconClass: 'vuestic-icon vuestic-icon-statistics'
   },
