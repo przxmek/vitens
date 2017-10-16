@@ -45,7 +45,10 @@ const prepareAssets = (data) => {
       name: item.Name,
       id: item.WebId,
       lat: coords[1],
-      lng: coords[0]
+      lng: coords[0],
+      links: {
+        plot: item.Links.InterpolatedData + "?nameFilter=*Total%20Flow*"
+      }
     })
   }
 
