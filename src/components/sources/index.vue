@@ -53,7 +53,6 @@
           var series = response.data.Items[0].Items;
           this.labels = series.map(e => moment(e.Timestamp).format("YYYY-MM-DD HH:mm"))
           this.dataSeries = series.map(e => {
-            console.log(e.Timestamp)
             return {
               t: moment(e.Timestamp).unix(),
               y: e.Value

@@ -26,7 +26,14 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map)
 
-      console.log(this.assets)
+      if (this.assets) {
+        this.assets.forEach(asset => {
+          L.marker([asset.lat, asset.lng]).addTo(this.map)
+            .bindPopup(asset.name)
+            .openPopup()
+        })
+        this.map.fitBounds(this.assets.map(e => [e.lat, e.lng]))
+      }
     },
     watch: {
       assets: function (data) {
