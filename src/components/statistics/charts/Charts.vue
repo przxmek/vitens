@@ -3,9 +3,9 @@
 
     <div class="row">
       <div class="col-md-12">
-        <!--<vuestic-widget class="chart-widget" headerText="Line Chart">-->
+        <vuestic-widget class="chart-widget">
           <line-chart v-bind:chart-data="series" type="line" :height="200"></line-chart>
-        <!--</vuestic-widget>-->
+        </vuestic-widget>
       </div>
     </div>
 

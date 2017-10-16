@@ -2,23 +2,42 @@ const store = {
   namespaced: true,
   state: {
     assets: {
-      test: 'asdf'
+
     },
     labels: [],
     series: []
   },
   mutations: {
-    loadStatic(state, data) {
-      const items = data.data.Items[0].Items
-      state.series = items.map(e => e.Value)
-      state.labels = items.map(e => e.Timestamp)
+    loadStatic(state, assets) {
+      state.assets = assets
     }
   },
   actions: {
     loadStatic(store, data) {
-      store.commit('loadStatic', data)
+      const assets = prepareAssets(data)
+      store.commit('loadStatic', assets)
+      store.commit('loadMenu', assets, { root: true })
     }
   }
+}
+
+const prepareAssets = (data) => {
+  var items = data.ProductionSites.Content.Items
+  var attributes = data.ProductionSitesAttributes.Content.Items.map(e => e.Content.Items)
+
+  var assets = []
+  var i
+  for (i=0; i<items.length; ++i) {
+    var item = items[i]
+    var attrs = attributes[i]
+    assets.push({
+      name: item.Name,
+      lat: 0.0,
+      lng: 0.0
+    })
+  }
+
+  return assets;
 }
 
 export default store
