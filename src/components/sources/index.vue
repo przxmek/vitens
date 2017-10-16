@@ -38,7 +38,7 @@
           datasets: [
             {
               lineTension: 0,
-              label: "",
+              label: "Total Flow",
               borderColor: 'green',
               fill: false,
               data: this.dataSeries

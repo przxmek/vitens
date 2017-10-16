@@ -43,15 +43,15 @@ export default {
   },
   methods: {
     acceptEvent(event) {
-      axios.put('https://saturn039.osiproghack.int/piwebapi/eventframes/' + event.WebId + '/acknowledge').then(e => {
-        console.log("patched")
+      axios.patch('https://saturn039.osiproghack.int/piwebapi/eventframes/' + event.WebId + '/acknowledge').then(e => {
+        this.loadEvents(this.webId)
       })
       console.log(event)
     },
     loadEvents(id) {
       var asset = this.$store.state.staticData.assetsFlatMap[id]
       axios.get('https://saturn039.osiproghack.int/piwebapi/elements/?path=' + asset.path + '\\Distribution\\Quality').then(qualityElement => {
-        axios.get('https://saturn039.osiproghack.int/piwebapi/elements/' + qualityElement.data.WebId + '/eventframes?startTime=*-1d').then(data => {
+        axios.get('https://saturn039.osiproghack.int/piwebapi/elements/' + qualityElement.data.WebId + '/eventframes?startTime=*-10d').then(data => {
           this.eventData = data.data.Items
         })
       })
