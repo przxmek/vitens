@@ -11,7 +11,7 @@ const piwebapi = store => {
 }
 
 const load = (store) => {
-  var payload = {
+  var prodPayload = {
     "Production": {
       "Method": "GET",
       "Resource": "https://saturn039.osiproghack.int/piwebapi/elements/E0QlqvSyIj702xjP96PHIItwaSVck2uy5xGpbgANOimkwAU0FUVVJOMDM4XENPTk5FQ1RQT0lOVFxWSVRFTlNcRlJJRVNMQU5EIFBST1ZJTkNFXDAxIFBST0RVQ1RJT04gU0lURVM"
@@ -34,7 +34,30 @@ const load = (store) => {
     }
   }
 
-  axios.post('https://saturn039.osiproghack.int/piwebapi/batch', payload).then(response => {
+  var distPayload = {
+    "Distribution": {
+      "Method": "GET",
+      "Resource": "https://localhost/piwebapi/elements/E0QlqvSyIj702xjP96PHIItwmyZck2uy5xGpbgANOimkwAU0FUVVJOMDM4XENPTk5FQ1RQT0lOVFxWSVRFTlNcRlJJRVNMQU5EIFBST1ZJTkNFXDAyIERJU1RSSUJVVElPTiBTSVRFUw"
+    },
+    "DistributionSites": {
+      "Method": "GET",
+      "Resource": "$.Distribution.Content.Links.Elements",
+      "ParentIds": [
+        "Distribution"
+      ]
+    },
+    "DistributionSitesAttributes": {
+      "Method": "GET",
+      "RequestTemplate": {
+        "Resource": "$.DistributionSites.Content.Items[*].Links.Attributes"
+      },
+      "ParentIds": [
+        "DistributionSites"
+      ]
+    }
+  }
+
+  axios.post('https://saturn039.osiproghack.int/piwebapi/batch', prodPayload).then(response => {
     let promises = []
     for (const site of response.data['ProductionSitesAttributes'].Content.Items) {
       for (const attr of site.Content.Items) {
