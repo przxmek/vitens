@@ -18,10 +18,11 @@
               <td>{{event.EndTime}}</td>
               <td>{{event.Name}}</td>
               <td>
-                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-info btn-micro" @click="acceptEvent(event)">Accept</button>
+                <button class="btn btn-warning btn-micro">Categorize</button>
                 <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-primary btn-micro" @click="sendToOperation(event)">
-                  <span>Send to operations</span>
+                  <span>To Verify</span>
                 </button>
+                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-info btn-micro" @click="acceptEvent(event)">Accept</button>
               </td>
             </tr>
             </tbody>
