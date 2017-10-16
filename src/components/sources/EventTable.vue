@@ -18,8 +18,8 @@
               <td>{{event.EndTime}}</td>
               <td>{{event.Name}}</td>
               <td>
-                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-primary btn-micro" @click="acceptEvent(event)">Accept</button>
-                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-info btn-micro" @click="sendToOperation(event)">
+                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-info btn-micro" @click="acceptEvent(event)">Accept</button>
+                <button v-if="!event.IsAcknowledged && event.Description !== 'sended'" class="btn btn-primary btn-micro" @click="sendToOperation(event)">
                   <span>Send to operations</span>
                 </button>
               </td>
@@ -61,7 +61,7 @@ export default {
     loadEvents(id) {
       var asset = this.$store.state.staticData.assetsFlatMap[id]
       axios.get('https://saturn039.osiproghack.int/piwebapi/elements/?path=' + asset.path + '\\Distribution\\Quality').then(qualityElement => {
-        axios.get('https://saturn039.osiproghack.int/piwebapi/elements/' + qualityElement.data.WebId + '/eventframes?startTime=*-10d').then(data => {
+        axios.get('https://saturn039.osiproghack.int/piwebapi/elements/' + qualityElement.data.WebId + '/eventframes?startTime=*-60d').then(data => {
           this.eventData = data.data.Items
         })
       })
