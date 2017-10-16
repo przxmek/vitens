@@ -35,8 +35,23 @@ const load = (store) => {
   }
 
   axios.post('https://saturn039.osiproghack.int/piwebapi/batch', payload).then(response => {
-    store.dispatch('staticData/loadStatic', response.data)
-  })
+    let promises = []
+    for (const site of response.data['ProductionSitesAttributes'].Content.Items) {
+      for (const attr of site.Content.Items) {
+        if (attr.Type === "OSIsoft.AF.Asset.AFFile")
+          continue
+        const url = attr.Links.EndValue
+        let getPromise = axios.get(url)
+        promises.push(getPromise.then(r => {
+          attr.Value = r.data
+        }))
+      }
+    }
+
+    axios.all(promises).then(r => {
+      store.dispatch('staticData/loadStatic', response.data)
+    })
+  });
 }
 
 export default piwebapi

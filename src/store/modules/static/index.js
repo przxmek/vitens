@@ -35,8 +35,8 @@ const prepareAssets = (data) => {
     assets.push({
       name: item.Name,
       id: item.WebId,
-      lat: 0.0,
-      lng: 0.0,
+      lat: attrs[0].Value.Value,
+      lng: attrs[1].Value.Value
     })
   }
 
