@@ -1,8 +1,6 @@
 <template>
   <div>
-    <vuestic-widget class="col-sm-12 map-widget">
-      <leaflet-map :assets="assets.productionSites"></leaflet-map>
-    </vuestic-widget>
+    <sources-info-widgets :mapAssets="assets.productionSites"></sources-info-widgets>
     <vuestic-widget class="chart-widget">
       <line-chart v-if="series" v-bind:chart-data="series" :height="200"></line-chart>
     </vuestic-widget>
@@ -11,14 +9,14 @@
 </template>
 
 <script>
-  import LeafletMap from '../maps/leaflet-maps/LeafletMap'
+  import SourcesInfoWidgets from './SourcesInfoWidgets'
   import LineChart from '../statistics/charts/LineChart'
   import axios from 'axios'
   import moment from 'moment'
 
   export default {
     props: ['webId'],
-    components: {LeafletMap, LineChart},
+    components: {SourcesInfoWidgets, LineChart},
     data () {
       return {
         labels: [],
