@@ -5,7 +5,6 @@ import dashboard from './dashboard'
 import ui from './ui'
 import maps from './maps'
 import tables from './tables'
-import auth from './auth'
 import extra from './extra'
 
 const state = {
@@ -16,13 +15,12 @@ const state = {
     tables,
     ui,
     extra,
-    auth,
     maps
   ]
 }
 
 const mutations = {
-  [types.TOGGLE_EXPAND_MENU_ITEM] (state, payload) {
+  [types.TOGGLE_EXPAND_MENU_ITEM](state, payload) {
     let menuItem = payload.menuItem
     let expand = payload.expand
     if (menuItem.children && menuItem.meta) {
@@ -32,7 +30,7 @@ const mutations = {
 }
 
 const actions = {
-  toggleExpandMenuItem ({commit}, payload) {
+  toggleExpandMenuItem({commit}, payload) {
     commit(types.TOGGLE_EXPAND_MENU_ITEM, payload)
   }
 }
