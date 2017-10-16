@@ -39,7 +39,7 @@
             {
               lineTension: 0,
               label: "Total Flow",
-              borderColor: 'green',
+              borderColor: this.$store.getters.palette.primary,
               fill: false,
               data: this.dataSeries
             }

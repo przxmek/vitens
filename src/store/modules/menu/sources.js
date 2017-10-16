@@ -5,7 +5,7 @@ export default {
   meta: {
     expanded: true,
     alwaysExpanded: true,
-    title: 'Sources',
+    title: 'Production Sites',
     iconClass: 'vuestic-icon vuestic-icon-statistics'
   },
 

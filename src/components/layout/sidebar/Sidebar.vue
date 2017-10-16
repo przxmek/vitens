@@ -177,7 +177,7 @@
 
       .sidebar-menu-item-icon {
         font-size: $sidebar-menu-item-icon-size;
-        color: $vue-green;
+        color: $accent;
         margin-right: 14px;
 
         &.fa-dashboard {       /* Temp fix */
@@ -214,7 +214,7 @@
     }
 
     .expand-icon {
-      color: $vue-green
+      color: $accent
     }
 
     a {

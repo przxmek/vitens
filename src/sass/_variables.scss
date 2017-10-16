@@ -18,7 +18,7 @@ $theme-orange: #f7cc36;
 $theme-blue: #4ab2e3;
 $theme-violet: #db76df;
 $theme-pale: #d9d9d9;
-$brand-primary : $vue-green !default;
+$brand-primary : $theme-blue !default;
 $brand-danger: $theme-red;
 $brand-warning: $theme-orange;
 $brand-info: $theme-blue;
@@ -28,6 +28,8 @@ $dark-gray: #282828;
 $gray: #adb3b9;
 $violet: #db76df;
 $dark-blue: #0045b6;
+
+$accent: $theme-blue;
 
 $colors-map: (
   brand-danger: $brand-danger,

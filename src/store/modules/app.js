@@ -11,7 +11,7 @@ const state = {
     },
     windowMatchSizeLg: '(min-width: 992px)',
     palette: {
-      primary: '#4ae387',
+      primary: '#4ab2e3',
       danger: '#e34a4a',
       info: '#4ab2e3',
       success: '#db76df',
