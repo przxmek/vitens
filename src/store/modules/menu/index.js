@@ -1,12 +1,7 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 
-import statistics from './statistics'
-import forms from './forms'
 import dashboard from './dashboard'
-import ui from './ui'
-import maps from './maps'
-import tables from './tables'
 import sources from './sources'
 import distributions from './distributions'
 

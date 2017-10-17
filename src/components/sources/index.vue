@@ -2,7 +2,7 @@
   <div>
     <sources-info-widgets :asset="asset"></sources-info-widgets>
     <vuestic-widget class="chart-widget">
-      <line-chart v-if="series" v-bind:chart-data="series" :height="200"></line-chart>
+      <line-chart v-if="series" v-bind:chart-data="series" :height="120"></line-chart>
     </vuestic-widget>
     <event-table :web-id="webId"></event-table>
   </div>
