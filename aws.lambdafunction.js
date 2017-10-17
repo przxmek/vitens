@@ -32,7 +32,7 @@ const handlers = {
         
         https.get({
             'host': 'proghackuc2017.osisoft.com' , 
-            'auth' : 'hacker04:shortBakerPlank#4',
+            'auth' : 'hacker04:********',
             'path' : '/piwebapi/streams/A0EIv2LjHEeN0GMUsPKVd0Xxg9u3z7f2o5xGpSgANOiuWVQIRJSLXs8KlQ01_t45n08iQSlVQSVRFUjAwMVxWSVRFTlNcVklURU5TXEZSSUVTTEFORCBQUk9WSU5DRVwwMSBQUk9EVUNUSU9OIFNJVEVTXFBST0RVQ1RJT04gU0lURSBTUEFOTkVOQlVSR1xESVNUUklCVVRJT05cUElQRVNcUElQRSBGUi1QU1BfLVRSMjF8UFJFU1NVUkU/value'
             
         },  (res) => {
@@ -61,7 +61,7 @@ const handlers = {
         
         https.get({
             'host': 'proghackuc2017.osisoft.com' , 
-            'auth' : 'hacker04:shortBakerPlank#4',
+            'auth' : 'hacker04:********',
             'path' : '/piwebapi/streams/A0EIv2LjHEeN0GMUsPKVd0Xxgqu7z7f2o5xGpSgANOiuWVQHN5OX_fNg1MQVeUcr-89ZwSlVQSVRFUjAwMVxWSVRFTlNcVklURU5TXEZSSUVTTEFORCBQUk9WSU5DRVwwMiBESVNUUklCVVRJT04gU0lURVNcQk9PU1RFUiBTVEFUSU9OIFdJUkRVTVxESVNUUklCVVRJT05cUFVNUFNcUFVNUCBGUi1PV0lSLUQxUk4xUDAxUFAwMXxTVEFUVVM/value'
             
         },  (res) => {
@@ -88,7 +88,7 @@ var mythis = this;
         
         https.get({
             'host': 'proghackuc2017.osisoft.com' , 
-            'auth' : 'hacker04:shortBakerPlank#4',
+            'auth' : 'hacker04:********',
             'path' : '/piwebapi/elements/E0QlqvSyIj702xjP96PHIItwoiVck2uy5xGpbgANOimkwAU0FUVVJOMDM4XENPTk5FQ1RQT0lOVFxWSVRFTlNcRlJJRVNMQU5EIFBST1ZJTkNFXDAxIFBST0RVQ1RJT04gU0lURVNcUFJPRFVDVElPTiBTSVRFIE5PT1JEQkVSR1VNXERJU1RSSUJVVElPTlxRVUFMSVRZ/eventframes?startTime=*-24h'
             
         },  (res) => {
