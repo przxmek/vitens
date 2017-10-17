@@ -18,7 +18,7 @@
         <a class="menu-icon i-menu-collapsed" href="#" @click.prevent="toggleSidebar(true)" v-else></a>
       </div>
 
-      <!--<div class="offset-lg-8"></div>-->
+      <div class="offset-sm-8"></div>
       <!--<div class="col nav-item dropdown navbar-dropdown d-flex align-items-center justify-content-center" v-dropdown>-->
         <!--<a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#" @click.prevent="closeMenu">-->
           <!--<span class="i-nav-messages notify"></span>-->
