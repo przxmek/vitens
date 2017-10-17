@@ -24,10 +24,13 @@ const store = {
     },
     updateRealtime (state, data) {
       if (!state.assetsFlatMap.hasOwnProperty(data.webId)) {
-        state.assetsFlatMap[data.webId] = []
+        state.assetsFlatMap[data.webId] = {value: '-', last: null, data: []}
       }
-      state.assetsFlatMap[data.webId].push({timestamp: data.timestamp, value: data.value})
-      state.assetsFlatMap[data.webId] = state.assetsFlatMap[data.webId].splice(-100)
+      let a = state.assetsFlatMap[data.webId]
+      a.last = a.value
+      a.value = data.value
+      a.data.push({timestamp: data.timestamp, value: data.value})
+      a.data = a.data.splice(-100)
     }
   },
   actions: {
@@ -87,27 +90,40 @@ const parseSites = (data) => {
       attributes: {
         'totalFlow': {
           webId: '',
-          name: 'Total flow',
-          data: null,
+          name: 'Total Flow',
+          data: {
+            value: '-',
+            last: null,
+            data: []
+          },
           uom: ''
         },
         'conductivity': {
           webId: '',
-          name: 'Conductivity',
-          data: null,
+          name: 'Conductivity',data: {
+            value: '-',
+            last: null,
+            data: []
+          },
           uom: 'μS/cm'
         },
         'acidity':
           {
             webId: '',
-            name: 'Acidity (pH)',
-            data: null,
+            name: 'Acidity (pH)',data: {
+            value: '-',
+            last: null,
+            data: []
+          },
             uom: ''
           },
         'turbidity': {
           webId: '',
-          name: 'Turbidity',
-          data: null,
+          name: 'Turbidity',data: {
+            value: '-',
+            last: null,
+            data: []
+          },
           uom: 'NTU'
         }
       },
@@ -124,16 +140,25 @@ const parseSites = (data) => {
 }
 
 const startRealtimeDataProd = async (store, asset) => {
+  let flowAttrUrl =  'https://saturn039.osiproghack.int/piwebapi/attributes/?path=' + asset.path + "|Total Flow"
   let qualityElementUrl =  'https://saturn039.osiproghack.int/piwebapi/elements/?path=' + asset.path + "\\Distribution\\Quality"
+  let totalFlowAttribute = (await axios.get(flowAttrUrl)).data
   let qualityElement = (await axios.get(qualityElementUrl)).data
   let qualityAttributes = (await axios.get(qualityElement.Links.Attributes)).data.Items
-
+  qualityAttributes.push(totalFlowAttribute)
   for (let a in asset.attributes) {
     let attr = asset.attributes[a]
-    if (attr === null || getAttrByDesc(qualityAttributes, attr.name) === null)
+    // let value = (await axios.get(attr.Link))
+    let a2 = getAttrByDesc(qualityAttributes, attr.name);
+    if (attr === null || a2 === null)
       continue
-    attr.webId = getAttrByDesc(qualityAttributes, attr.name).WebId
-    store.dispatch('updateRealtime', {webId: attr.webId, value: null, timestamp: null})
+    let vals = (await axios.get(a2.Links.RecordedData)).data.Items
+    attr.webId = a2.WebId
+    for (let v of vals) {
+      if (!v || v.Good !== true)
+        continue
+      store.dispatch('updateRealtime', {webId: attr.webId, value: v.Value.toFixed(2), timestamp: v.Timestamp})
+    }
     attr.data = store.state.assetsFlatMap[attr.webId]
   }
 
@@ -158,7 +183,7 @@ const startRealtimeDataProd = async (store, asset) => {
 
 const getAttrByDesc = (attributes, desc) => {
   for (let attr of attributes) {
-    if (attr.Description === desc)
+    if (attr.Description === desc || attr.Name === desc)
       return attr
   }
   return null

@@ -4,38 +4,37 @@
       <leaflet-map :assets="assets.productionSites"></leaflet-map>
     </vuestic-widget>
 
-    <div class="col-sm-12 col-md-6">
-
+    <div class="col-sm-12 col-md-6" v-if="kpi">
       <div class="row">
-        <div class="col-sm-12 col-md-6 col-xl-6">
+        <div class="col-sm-12 col-md-6 col-xl-6" v-if="kpi.f">
           <vuestic-widget class="info-widget">
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <div v-if="kpi[0].value != null && kpi[0].previous != null">
-                    <i v-if="kpi[0].previous < kpi[0].value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                    <i v-if="kpi[0].previous > kpi[0].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  <div v-if="kpi.f.value != null && kpi.f.previous != null">
+                    <i v-if="kpi.f.previous < kpi.f.value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
+                    <i v-if="kpi.f.previous > kpi.f.value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
                   </div>
-                  <p>{{kpi[0].value}}</p>
+                  <p>{{kpi.f.value}}</p>
                 </div>
-                <div class="stats-title">{{kpi[0].name}}</div>
+                <div class="stats-title">{{kpi.f.name}}</div>
               </div>
             </div>
           </vuestic-widget>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-xl-6">
+        <div class="col-sm-12 col-md-6 col-xl-6" v-if="kpi.c">
           <vuestic-widget class="info-widget">
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <div v-if="kpi[1].value != null && kpi[1].previous != null">
-                  <i v-if="kpi[1].previous < kpi[1].value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                  <i v-if="kpi[1].previous > kpi[1].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  <div v-if="kpi.c.value != null && kpi.c.previous != null">
+                    <i v-if="kpi.c.previous < kpi.c.value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
+                    <i v-if="kpi.c.previous > kpi.c.value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
                   </div>
-                  <p>{{kpi[1].value}}</p>
+                  <p>{{kpi.c.value}}</p>
                 </div>
-                <div class="stats-title">{{kpi[1].name}}</div>
+                <div class="stats-title">{{kpi.c.name}}</div>
               </div>
             </div>
           </vuestic-widget>
@@ -43,35 +42,35 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-12 col-md-6 col-xl-6">
+        <div class="col-sm-12 col-md-6 col-xl-6" v-if="kpi.a">
           <vuestic-widget class="info-widget">
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <div v-if="kpi[2].value != null && kpi[2].previous != null">
-                  <i v-if="kpi[2].previous < kpi[2].value" class="ion ion-arrow-up-c text-warning stats-icon"></i>
-                  <i v-if="kpi[2].previous > kpi[2].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  <div v-if="kpi.a.value != null && kpi.a.previous != null">
+                    <i v-if="kpi.a.previous < kpi.a.value" class="ion ion-arrow-up-c text-warning stats-icon"></i>
+                    <i v-if="kpi.a.previous > kpi.a.value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
                   </div>
-                  <p>{{kpi[2].value}}</p>
+                  <p>{{kpi.a.value}}</p>
                 </div>
-                <div class="stats-title">{{kpi[2].name}}</div>
+                <div class="stats-title">{{kpi.a.name}}</div>
               </div>
             </div>
           </vuestic-widget>
         </div>
 
-        <div class="col-sm-12 col-md-6 col-xl-6">
+        <div class="col-sm-12 col-md-6 col-xl-6" v-if="kpi.t">
           <vuestic-widget class="info-widget">
             <div class="info-widget-inner">
               <div class="stats">
                 <div class="stats-number">
-                  <div v-if="kpi[3].value != null && kpi[3].previous != null">
-                  <i v-if="kpi[3].previous < kpi[3].value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
-                  <i v-if="kpi[3].previous > kpi[3].value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
+                  <div v-if="kpi.t.value != null && kpi.t.previous != null">
+                    <i v-if="kpi.t.previous < kpi.t.value" class="ion ion-arrow-up-c text-primary stats-icon"></i>
+                    <i v-if="kpi.t.previous > kpi.t.value" class="ion ion-arrow-down-c text-primary stats-icon"></i>
                   </div>
-                  <p>{{kpi[3].value}}</p>
+                  <p>{{kpi.t.value}}</p>
                 </div>
-                <div class="stats-title">{{kpi[3].name}}</div>
+                <div class="stats-title">{{kpi.t.name}}</div>
               </div>
             </div>
           </vuestic-widget>
@@ -95,33 +94,38 @@
       assets () {
         return this.$store.state.staticData.assets
       },
-      kpi() {
-        return [
-        {
-          name: 'Total flow',
-          value: 1497.69,
-          previous: null,
-          uom: ''
-        },
-        {
-          name: 'Conductivity',
-          value: 512,
-          previous: 500,
-          uom: 'μS/cm'
-        },
-        {
-          name: 'Acidity (pH)',
-          value: 7.71,
-          previous: 7.80,
-          uom: ''
-        },
-        {
-          name: 'Turbidity',
-          value: 0.17,
-          previous: 0.17,
-          uom: 'NTU'
+      kpi () {
+        if (!this.asset || !this.asset.attributes) {
+          return {}
+        } else {
+          return {
+            'f': {
+              name: this.asset.attributes.totalFlow.name,
+              value: this.asset.attributes.totalFlow.data.value,
+              previous: this.asset.attributes.totalFlow.data.last,
+              uom: this.asset.attributes.totalFlow.uom
+            },
+            'c': {
+              name: this.asset.attributes.conductivity.name,
+              value: this.asset.attributes.conductivity.data.value,
+              previous: this.asset.attributes.conductivity.data.last,
+              uom: this.asset.attributes.conductivity.uom
+            },
+            'a': {
+              name: this.asset.attributes.acidity.name,
+              value: this.asset.attributes.acidity.data.value,
+              previous: this.asset.attributes.acidity.data.last,
+              uom: this.asset.attributes.acidity.uom
+            },
+            't': {
+              name: this.asset.attributes.turbidity.name,
+              value: this.asset.attributes.turbidity.data.value,
+              previous: this.asset.attributes.turbidity.data.last,
+              uom: this.asset.attributes.turbidity.uom
+            }
+          }
         }
-      ]}
+      }
     }
   }
 </script>
