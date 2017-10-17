@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OSIsoft.AF.xsd" SchemaVersion="2.0" SoftwareVersion="2.9.2.8185" ExportMode="NoUniqueID" PISystem="SATURN038" Database="ConnectPoint" Description="OSIsoft EMEA Users Conference 2017, London" Created="2017-10-17T00:52:53.7405897Z" id="1cda2a8d-421d-4a61-b86f-d84cc39b2986" ParentKey="1cda2a8d-421d-4a61-b86f-d84cc39b2986" ExportedObject="NamedCollectionList" ExportedType="AFNamedCollectionList`1" Identity="ElementTemplate">
+  <AFElementTemplate>
+    <Name>QualityAlarm</Name>
+    <Type>None</Type>
+    <InstanceType>EventFrame</InstanceType>
+    <AllowElementToExtend>false</AllowElementToExtend>
+    <CanBeAcknowledged>true</CanBeAcknowledged>
+    <AFAttributeTemplate>
+      <Name>Conductivity</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+      <DataReference>String Builder</DataReference>
+      <ConfigString>.\Elements[.]|%Attribute%</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Conductivity delta</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+      <DataReference>String Builder</DataReference>
+      <ConfigString>.\Elements[.]|%Attribute%</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Path</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+      <DataReference>String Builder</DataReference>
+      <ConfigString>"%ElementPath%";</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>pH</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+      <DataReference>String Builder</DataReference>
+      <ConfigString>.\Elements[.]|%Attribute%</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Turbidity</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+      <DataReference>String Builder</DataReference>
+      <ConfigString>.\Elements[.]|%Attribute%</ConfigString>
+    </AFAttributeTemplate>
+  </AFElementTemplate>
+</AF>
